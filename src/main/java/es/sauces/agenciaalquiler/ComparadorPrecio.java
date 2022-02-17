@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author daw1
+ * @author Ricardo Santiago Tomé
  */
 public class ComparadorPrecio  implements Comparator<Vehiculo> {
 

@@ -7,7 +7,7 @@ package es.sauces.agenciaalquiler;
 
 /**
  *
- * @author daw1
+ * @author Ricardo Santiago Tomé
  */
 public class Furgoneta extends Vehiculo{
     private float capacidad;

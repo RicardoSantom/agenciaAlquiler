@@ -7,7 +7,7 @@ package es.sauces.agenciaalquiler;
 
 /**
  *
- * @author daw1
+ * @author Ricardo Santiago Tomé
  */
 public class Turismo extends Vehiculo{
     private int plazas;

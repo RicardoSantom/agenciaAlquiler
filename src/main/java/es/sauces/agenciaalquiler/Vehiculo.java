@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author daw1
+ * @author Ricardo Santiago Tomé
  */
 public abstract class Vehiculo implements Comparable<Vehiculo> {
     private String matricula;
