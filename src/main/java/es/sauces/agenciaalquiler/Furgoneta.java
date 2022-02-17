@@ -12,9 +12,18 @@ package es.sauces.agenciaalquiler;
 public class Furgoneta extends Vehiculo{
     private float capacidad;
 
+    /**
+     *
+     */
     public Furgoneta() {
     }
 
+    /**
+     *
+     * @param matricula
+     * @param grupo
+     * @param capacidad
+     */
     public Furgoneta( String matricula, Grupo grupo,float capacidad ) {
         super(matricula, grupo);
         this.capacidad = capacidad;
@@ -25,7 +34,10 @@ public class Furgoneta extends Vehiculo{
         return super.toString() + "," + capacidad;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     @Override
     public float getPrecioAlquiler() {
         float precio=0;
@@ -46,6 +58,11 @@ public class Furgoneta extends Vehiculo{
         return precio;
     }
 
+    /**
+     *
+     * @param dias
+     * @return
+     */
     @Override
     public float getPrecioAlquiler(int dias) {
         return super.getPrecioAlquiler(dias);

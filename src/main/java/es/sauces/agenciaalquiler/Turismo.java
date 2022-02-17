@@ -12,17 +12,34 @@ package es.sauces.agenciaalquiler;
 public class Turismo extends Vehiculo{
     private int plazas;
     
+    /**
+     *
+     */
     public Turismo(){}
 
+    /**
+     *
+     * @param matricula
+     * @param grupo
+     * @param plazas
+     */
     public Turismo(String matricula, Grupo grupo,int plazas) {
         super(matricula,grupo);
         this.plazas = plazas;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlazas() {
         return plazas;
     }
 
+    /**
+     *
+     * @param plazas
+     */
     public void setPlazas(int plazas) {
         this.plazas = plazas;
     }
@@ -32,6 +49,10 @@ public class Turismo extends Vehiculo{
         return super.toString()+ "," + plazas ;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public float getPrecioAlquiler() {
         float precio = 0;
@@ -52,6 +73,11 @@ public class Turismo extends Vehiculo{
         
     }
     
+    /**
+     *
+     * @param dias
+     * @return
+     */
     @Override
     public float getPrecioAlquiler(int dias){
         float precio;

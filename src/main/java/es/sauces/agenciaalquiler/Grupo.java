@@ -10,5 +10,19 @@ package es.sauces.agenciaalquiler;
  * @author Ricardo Santiago Tomé
  */
 public enum Grupo {
-    A,B,C;
+
+    /**
+     *
+     */
+    A,
+
+    /**
+     *
+     */
+    B,
+
+    /**
+     *
+     */
+    C;
 }

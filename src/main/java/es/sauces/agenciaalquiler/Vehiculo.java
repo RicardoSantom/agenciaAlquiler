@@ -15,25 +15,49 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
     private String matricula;
     private Grupo grupo;
     
+    /**
+     *
+     */
     public Vehiculo(){}
 
+    /**
+     *
+     * @param matricula
+     * @param grupo
+     */
     public Vehiculo(String matricula, Grupo grupo) {
         this.matricula = matricula;
         this.grupo = grupo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMatricula() {
         return matricula;
     }
 
+    /**
+     *
+     * @param matricula
+     */
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
+    /**
+     *
+     * @return
+     */
     public Grupo getGrupo() {
         return grupo;
     }
 
+    /**
+     *
+     * @param grupo
+     */
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
@@ -63,10 +87,10 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
             return false;
         }
         final Vehiculo other = (Vehiculo) obj;
-        if (!Objects.equals(this.matricula, other.matricula)) {
-            return false;
+        if (Objects.equals(this.matricula, other.matricula)) {
+            return true;
         }
-        return true;
+        return false;
     }
     
     public int compareTo(Vehiculo v){
@@ -77,8 +101,17 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
         return num;
     }
     
+    /**
+     *
+     * @return
+     */
     public abstract float getPrecioAlquiler();
     
+    /**
+     *
+     * @param dias
+     * @return
+     */
     public float getPrecioAlquiler(int dias){
         float precio;
         

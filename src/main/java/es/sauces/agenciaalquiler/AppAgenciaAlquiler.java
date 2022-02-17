@@ -1,8 +1,5 @@
 package es.sauces.agenciaalquiler;
 
-import static es.sauces.agenciaalquiler.Grupo.A;
-import static es.sauces.agenciaalquiler.Grupo.B;
-import static es.sauces.agenciaalquiler.Grupo.C;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +9,10 @@ import java.util.Scanner;
  */
 public class AppAgenciaAlquiler {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         AgenciaAlquiler aa = new AgenciaAlquiler();
         int opcion;
@@ -46,22 +47,12 @@ public class AppAgenciaAlquiler {
                     matricula = teclado.nextLine();
                     System.out.println("Introduzca grupo(A,B,C): ");
                     letraGrupo = teclado.nextLine();
-                    switch (letraGrupo) {
-                        case "A":
-                            grupo=A;
-                            break;
-                        case "B":
-                            grupo=B;
-                            break;
-                        case "C":
-                            grupo=C;
-                            break;
-                    }
                     System.out.println("Introduzca numero de plazas:");
-                    plazas=teclado.nextInt();
-                    if (aa.incluirVehiculo(new Turismo(matricula, grupo, plazas))){
+                    plazas = teclado.nextInt();
+                    teclado.nextLine();
+                    if (aa.incluirVehiculo(new Turismo(matricula, Grupo.valueOf(letraGrupo), plazas))) {
                         System.out.println("Turismo registrado.");
-                    }else{
+                    } else {
                         System.out.println("No se ha podido incluir el turismo.");
                     }
                     System.out.println("-------------------------------------");
@@ -75,22 +66,12 @@ public class AppAgenciaAlquiler {
                     matricula = teclado.nextLine();
                     System.out.println("Introduzca grupo(A,B,C): ");
                     letraGrupo = teclado.nextLine();
-                    switch (letraGrupo) {
-                        case "A":
-                            grupo=A;
-                            break;
-                        case "B":
-                            grupo=B;
-                            break;
-                        case "C":
-                            grupo=C;
-                            break;
-                    }
                     System.out.println("Introduzca capacidad:");
-                    capacidad=teclado.nextInt();
-                    if (aa.incluirVehiculo(new Furgoneta(matricula, grupo, capacidad))){
+                    capacidad = teclado.nextInt();
+                    teclado.nextLine();
+                    if (aa.incluirVehiculo(new Furgoneta(matricula, Grupo.valueOf(letraGrupo), capacidad))) {
                         System.out.println("Furgoneta registrada.");
-                    }else{
+                    } else {
                         System.out.println("No se ha podido incluir la furgoneta.");
                     }
                     System.out.println("-------------------------------------");
@@ -98,31 +79,49 @@ public class AppAgenciaAlquiler {
                 case 3:
                     System.out.println("3.Consultar vehiculo.");
                     System.out.println("Introduzca matricula para consultar vehiculo");
-                    String matricula1=teclado.nextLine();
-                    
+                    matricula = teclado.nextLine();
+                    System.out.println(aa.consultarVehiculo(matricula));
                     break;
                 case 4:
                     System.out.println("4.Eliminar vehiculo.");
-                    System.out.println("Introduzc");
+                    System.out.println("Introduzca matricula para eliminar vehiculo");
+                    matricula = teclado.nextLine();
+                    System.out.println("Esta seguro de eliminar este vehiculo");
+                    String opcion2;
+                    opcion2 = teclado.nextLine();
+                    if (opcion2.equalsIgnoreCase("si")) {
+                        aa.eliminarVehiculo(aa.consultarVehiculo(matricula));
+                        System.out.println("Vehiculo eliminado.");
+                    } else {
+                        System.out.println("Ha decidido no eliminar el vehiculo.");
+                    }
                     break;
                 case 5:
                     System.out.println("5.Listar vehiculo por precio.");
                     for (Vehiculo vehiculo : aa.listarVehiculosPorPrecio()) {
                         System.out.println(vehiculo.toString());
                     }
+
                     break;
                 case 6:
                     System.out.println("6.Listar turismos.");
                     for (Vehiculo vehiculo : aa.getFlota()) {
-                        System.out.println(vehiculo.toString());
+                        if (vehiculo.getClass().equals(Turismo.class)) {
+                            System.out.println(vehiculo.toString());
+                        }
                     }
                     break;
                 case 7:
                     System.out.println("7.Listar furgonetas.");
+                    for (Vehiculo vehiculo : aa.getFlota()) {
+                        if (vehiculo.getClass().equals(Furgoneta.class)) {
+                            System.out.println(vehiculo.toString());
+                        }
+                    }
                     break;
                 case 8:
                     System.out.println("8.Consultar alquiler mas barato.");
-                    Vehiculo vehiculo=aa.getVehiculoMasBarato();
+                    Vehiculo vehiculo = aa.getVehiculoMasBarato();
                     System.out.println(vehiculo + " mas barato= " + vehiculo.getPrecioAlquiler());
                     System.out.println("-------------------------------------");
                     break;

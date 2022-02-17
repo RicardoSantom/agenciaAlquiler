@@ -19,41 +19,63 @@ public class AgenciaAlquiler {
     private String nombre;
     private List<Vehiculo> flota;
 
+    /**
+     *
+     */
     public AgenciaAlquiler() {
+        flota =new ArrayList<>();
     }
 
-    public AgenciaAlquiler(String nombre, List<Vehiculo> flota) {
-        this.nombre = nombre;
-        this.flota = new ArrayList<>(flota);
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Vehiculo> getFlota() {
         return flota;
     }
 
+    /**
+     *
+     * @param flota
+     */
     public void setFlota(List<Vehiculo> flota) {
         this.flota = flota;
     }
     
-    
-
+    /**
+     *
+     * @param vehiculo
+     * @return
+     */
     public boolean incluirVehiculo(Vehiculo vehiculo) {
         boolean salida = false;
-        if (vehiculo.getMatricula() != null) {
-            salida = true;
-            flota.add(vehiculo);
+        if (vehiculo != null && !flota.contains(vehiculo)) {
+            salida = flota.add(vehiculo);
         }
         return salida;
     }
 
+    /**
+     *
+     * @param matricula
+     * @return
+     */
     public Vehiculo consultarVehiculo(String matricula) {
         for (Vehiculo v : flota) {
             if (v.getMatricula().equals(matricula)) {
@@ -63,6 +85,11 @@ public class AgenciaAlquiler {
         return null;
     }
 
+    /**
+     *
+     * @param vehiculo
+     * @return
+     */
     public boolean eliminarVehiculo(Vehiculo vehiculo) {
         boolean salida = false;
 
@@ -72,6 +99,10 @@ public class AgenciaAlquiler {
         return salida;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Vehiculo> listarVehiculosPorPrecio() {
         List<Vehiculo> salida = null;
 
@@ -81,6 +112,11 @@ public class AgenciaAlquiler {
         return salida;
     }
 
+    /**
+     *
+     * @param grupo
+     * @return
+     */
     public List<Vehiculo> listarVehiculos(Grupo grupo) {
         List<Vehiculo> salida = null;
         salida = new ArrayList<>(flota);
@@ -88,16 +124,13 @@ public class AgenciaAlquiler {
         return salida;
     }
     
+    /**
+     *
+     * @return
+     */
     public Vehiculo getVehiculoMasBarato(){
        Vehiculo barato;
-       barato= new Turismo(null,A,1);
-       for (Vehiculo v : flota){
-           v.getPrecioAlquiler();
-           if(v.getPrecioAlquiler() >= barato.getPrecioAlquiler()){
-           } else {
-               barato=v;
-           }
-       }
+       barato=Collections.min(flota,new ComparadorPrecio());
        return barato;
     }
 
