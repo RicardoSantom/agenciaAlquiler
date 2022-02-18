@@ -5,10 +5,10 @@
  */
 package es.sauces.agenciaalquiler;
 
-import static es.sauces.agenciaalquiler.Grupo.A;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  *
@@ -23,7 +23,7 @@ public class AgenciaAlquiler {
      *
      */
     public AgenciaAlquiler() {
-        flota =new ArrayList<>();
+        flota = new ArrayList<>();
     }
 
     /**
@@ -57,7 +57,7 @@ public class AgenciaAlquiler {
     public void setFlota(List<Vehiculo> flota) {
         this.flota = flota;
     }
-    
+
     /**
      *
      * @param vehiculo
@@ -65,9 +65,11 @@ public class AgenciaAlquiler {
      */
     public boolean incluirVehiculo(Vehiculo vehiculo) {
         boolean salida = false;
+
         if (vehiculo != null && !flota.contains(vehiculo)) {
             salida = flota.add(vehiculo);
         }
+
         return salida;
     }
 
@@ -77,6 +79,17 @@ public class AgenciaAlquiler {
      * @return
      */
     public Vehiculo consultarVehiculo(String matricula) {
+        //Con listiterator
+        /*Vehiculo salida=null;
+        ListIterator<Vehiculo> li=flota.listIterator();
+        
+        while(li.hasNext()){
+            salida=li.next();
+            if(salida.getMatricula().equals(matricula)){
+                return salida;
+            }
+        }
+        return null;*/
         for (Vehiculo v : flota) {
             if (v.getMatricula().equals(matricula)) {
                 return v;
@@ -119,19 +132,23 @@ public class AgenciaAlquiler {
      */
     public List<Vehiculo> listarVehiculos(Grupo grupo) {
         List<Vehiculo> salida = null;
-        salida = new ArrayList<>(flota);
-        Collections.sort(salida);
+        salida = new ArrayList<>();
+        for(Vehiculo vehiculo : flota){
+            if(vehiculo.getGrupo()==grupo){
+                salida.add(vehiculo);
+            }
+        }
         return salida;
     }
-    
+
     /**
      *
      * @return
      */
-    public Vehiculo getVehiculoMasBarato(){
-       Vehiculo barato;
-       barato=Collections.min(flota,new ComparadorPrecio());
-       return barato;
+    public Vehiculo getVehiculoMasBarato() {
+        Vehiculo barato;
+        barato = Collections.min(flota, new ComparadorPrecio());
+        return barato;
     }
 
 }

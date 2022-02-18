@@ -12,13 +12,15 @@ import java.util.Objects;
  * @author Ricardo Santiago Tomé
  */
 public abstract class Vehiculo implements Comparable<Vehiculo> {
+
     private String matricula;
     private Grupo grupo;
-    
+
     /**
      *
      */
-    public Vehiculo(){}
+    public Vehiculo() {
+    }
 
     /**
      *
@@ -61,11 +63,10 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
-    
 
     @Override
     public String toString() {
-        return  matricula + "," + grupo ;
+        return matricula + "," + grupo;
     }
 
     @Override
@@ -83,40 +84,41 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+
+        if (obj instanceof Vehiculo) {
+            final Vehiculo other = (Vehiculo) obj;
+            if (Objects.equals(this.matricula, other.matricula)) {
+                return true;
+            }
         }
-        final Vehiculo other = (Vehiculo) obj;
-        if (Objects.equals(this.matricula, other.matricula)) {
-            return true;
-        }
+
         return false;
     }
-    
-    public int compareTo(Vehiculo v){
+
+    public int compareTo(Vehiculo v) {
         int num;
-        
-        num=this.matricula.compareTo(matricula);
-        
+
+        num = this.matricula.compareTo(v.matricula);
+
         return num;
     }
-    
+
     /**
      *
      * @return
      */
     public abstract float getPrecioAlquiler();
-    
+
     /**
      *
      * @param dias
      * @return
      */
-    public float getPrecioAlquiler(int dias){
+    public float getPrecioAlquiler(int dias) {
         float precio;
-        
-        precio=getPrecioAlquiler()*dias;
-        
+
+        precio = getPrecioAlquiler() * dias;
+
         return precio;
     }
 }

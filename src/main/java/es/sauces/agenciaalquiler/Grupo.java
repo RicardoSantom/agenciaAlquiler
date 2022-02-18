@@ -14,15 +14,39 @@ public enum Grupo {
     /**
      *
      */
-    A,
+    A(50,1.5f,10),
 
     /**
      *
      */
-    B,
+    B(55,2,15),
 
     /**
      *
      */
-    C;
+    C(60,2.5f,20);
+
+    private final int base,variableFurgoneta;
+    private final float variableTurismo;
+
+    private Grupo(int base, float variableTurismo, int variableFurgoneta) {
+        this.base = base;
+        this.variableFurgoneta = variableFurgoneta;
+        this.variableTurismo = variableTurismo;
+    }
+
+    public int getBase() {
+        return base;
+    }
+
+    public int getVariableFurgoneta() {
+        return variableFurgoneta;
+    }
+
+    public float getVariableTurismo() {
+        return variableTurismo;
+    }
+    
+    
+    
 }

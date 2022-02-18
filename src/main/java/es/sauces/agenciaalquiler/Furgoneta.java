@@ -29,6 +29,16 @@ public class Furgoneta extends Vehiculo{
         this.capacidad = capacidad;
     }
 
+    public float getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(float capacidad) {
+        this.capacidad = capacidad;
+    }
+    
+    
+
     @Override
     public String toString() {
         return super.toString() + "," + capacidad;
@@ -40,22 +50,8 @@ public class Furgoneta extends Vehiculo{
      */
     @Override
     public float getPrecioAlquiler() {
-        float precio=0;
-        
-        Grupo g;
-        g=getGrupo();
-        switch(g){
-            case A:
-                precio=50 +(5*capacidad);
-                break;
-            case B:
-                precio=55+(10*capacidad);
-                break;
-            case C:
-                precio=60+(15*capacidad);
-        }
-        
-        return precio;
+        return getGrupo().getBase()+getGrupo().getVariableFurgoneta()*capacidad;
+
     }
 
     /**

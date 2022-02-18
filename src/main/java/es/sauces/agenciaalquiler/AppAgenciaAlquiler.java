@@ -1,5 +1,6 @@
 package es.sauces.agenciaalquiler;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,10 +25,11 @@ public class AppAgenciaAlquiler {
             System.out.println("2.Crear furgoneta.");
             System.out.println("3.Consultar vehiculo.");
             System.out.println("4.Eliminar vehiculo.");
-            System.out.println("5.Listar vehiculo por precio.");
-            System.out.println("6.Listar turismos.");
-            System.out.println("7.Listar furgonetas.");
-            System.out.println("8.Consultar alquiler mas barato.");
+            System.out.println("5.Listar vehiculo por grupo.");
+            System.out.println("6.Listar vehiculo por precio.");
+            System.out.println("7.Listar turismos.");
+            System.out.println("8.Listar furgonetas.");
+            System.out.println("9.Consultar alquiler mas barato.");
             System.out.println("0.Salir.");
             System.out.println("Introduzca opcion:");
             while (!teclado.hasNextInt()) {
@@ -39,18 +41,18 @@ public class AppAgenciaAlquiler {
             switch (opcion) {
                 case 1:
                     String matricula,
-                     letraGrupo;
-                    Grupo grupo = null;
+                     grupo;
+                    //Grupo grupo = null;
                     int plazas;
                     System.out.println("1.Crear turismo.");
                     System.out.println("Introduzca matricula: ");
                     matricula = teclado.nextLine();
                     System.out.println("Introduzca grupo(A,B,C): ");
-                    letraGrupo = teclado.nextLine();
+                    grupo = teclado.nextLine();
                     System.out.println("Introduzca numero de plazas:");
                     plazas = teclado.nextInt();
                     teclado.nextLine();
-                    if (aa.incluirVehiculo(new Turismo(matricula, Grupo.valueOf(letraGrupo), plazas))) {
+                    if (aa.incluirVehiculo(new Turismo(matricula, Grupo.valueOf(grupo), plazas))) {
                         System.out.println("Turismo registrado.");
                     } else {
                         System.out.println("No se ha podido incluir el turismo.");
@@ -65,11 +67,12 @@ public class AppAgenciaAlquiler {
                     System.out.println("Introduzca matricula: ");
                     matricula = teclado.nextLine();
                     System.out.println("Introduzca grupo(A,B,C): ");
-                    letraGrupo = teclado.nextLine();
+                    System.out.println(Arrays.toString(Grupo.values()));
+                    grupo = teclado.nextLine();
                     System.out.println("Introduzca capacidad:");
                     capacidad = teclado.nextInt();
                     teclado.nextLine();
-                    if (aa.incluirVehiculo(new Furgoneta(matricula, Grupo.valueOf(letraGrupo), capacidad))) {
+                    if (aa.incluirVehiculo(new Furgoneta(matricula, Grupo.valueOf(grupo), capacidad))) {
                         System.out.println("Furgoneta registrada.");
                     } else {
                         System.out.println("No se ha podido incluir la furgoneta.");
@@ -80,13 +83,17 @@ public class AppAgenciaAlquiler {
                     System.out.println("3.Consultar vehiculo.");
                     System.out.println("Introduzca matricula para consultar vehiculo");
                     matricula = teclado.nextLine();
-                    System.out.println(aa.consultarVehiculo(matricula));
+                    if(aa.consultarVehiculo(matricula) != null){
+                        System.out.println(aa.consultarVehiculo(matricula));
+                    }else{
+                        System.out.println("No existe el vehiculo");
+                    }
                     break;
                 case 4:
                     System.out.println("4.Eliminar vehiculo.");
                     System.out.println("Introduzca matricula para eliminar vehiculo");
                     matricula = teclado.nextLine();
-                    System.out.println("Esta seguro de eliminar este vehiculo");
+                    System.out.println("Esta seguro de eliminar este vehiculo(SI/NO)");
                     String opcion2;
                     opcion2 = teclado.nextLine();
                     if (opcion2.equalsIgnoreCase("si")) {
@@ -97,30 +104,33 @@ public class AppAgenciaAlquiler {
                     }
                     break;
                 case 5:
-                    System.out.println("5.Listar vehiculo por precio.");
+                    System.out.println("5.Listar vehiculo por grupo.");
+                    break;
+                case 6:
+                    System.out.println("6.Listar vehiculo por precio.");
                     for (Vehiculo vehiculo : aa.listarVehiculosPorPrecio()) {
                         System.out.println(vehiculo.toString());
                     }
 
                     break;
-                case 6:
-                    System.out.println("6.Listar turismos.");
+                case 7:
+                    System.out.println("7.Listar turismos.");
                     for (Vehiculo vehiculo : aa.getFlota()) {
                         if (vehiculo.getClass().equals(Turismo.class)) {
                             System.out.println(vehiculo.toString());
                         }
                     }
                     break;
-                case 7:
-                    System.out.println("7.Listar furgonetas.");
+                case 8:
+                    System.out.println("8.Listar furgonetas.");
                     for (Vehiculo vehiculo : aa.getFlota()) {
-                        if (vehiculo.getClass().equals(Furgoneta.class)) {
-                            System.out.println(vehiculo.toString());
+                        if (vehiculo instanceof Turismo) {
+                            System.out.println(vehiculo);
                         }
                     }
                     break;
-                case 8:
-                    System.out.println("8.Consultar alquiler mas barato.");
+                case 9:
+                    System.out.println("9.Consultar alquiler mas barato.");
                     Vehiculo vehiculo = aa.getVehiculoMasBarato();
                     System.out.println(vehiculo + " mas barato= " + vehiculo.getPrecioAlquiler());
                     System.out.println("-------------------------------------");
