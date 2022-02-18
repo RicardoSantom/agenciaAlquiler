@@ -105,6 +105,20 @@ public class AppAgenciaAlquiler {
                     break;
                 case 5:
                     System.out.println("5.Listar vehiculo por grupo.");
+                    boolean correcto;
+                    do{
+                        correcto=false;
+                        System.out.println("Introduzca grupo a buscar. "+Arrays.toString(Grupo.values()));
+                        grupo=teclado.nextLine();
+                        for(Grupo g : Grupo.values()){
+                            if(grupo.equals(g.toString())){
+                                correcto=true;
+                            }
+                        }
+                    }while(!correcto);
+                    for (Vehiculo v: aa.listarVehiculos(Grupo.valueOf(grupo))){
+                        System.out.println(v);
+                    }
                     break;
                 case 6:
                     System.out.println("6.Listar vehiculo por precio.");
