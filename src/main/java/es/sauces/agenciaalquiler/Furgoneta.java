@@ -24,7 +24,7 @@ public class Furgoneta extends Vehiculo{
      * @param grupo
      * @param capacidad
      */
-    public Furgoneta( String matricula, Grupo grupo,float capacidad ) {
+    public Furgoneta( Matricula matricula, Grupo grupo,float capacidad ) {
         super(matricula, grupo);
         this.capacidad = capacidad;
     }

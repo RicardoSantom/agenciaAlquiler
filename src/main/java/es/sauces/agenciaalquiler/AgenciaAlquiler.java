@@ -78,9 +78,9 @@ public class AgenciaAlquiler {
      * @param matricula
      * @return
      */
-    public Vehiculo consultarVehiculo(String matricula) {
+    public Vehiculo consultarVehiculo(Matricula matricula) {
         //Con listiterator
-        /*Vehiculo salida=null;
+        Vehiculo salida=null;
         ListIterator<Vehiculo> li=flota.listIterator();
         
         while(li.hasNext()){
@@ -89,13 +89,13 @@ public class AgenciaAlquiler {
                 return salida;
             }
         }
-        return null;*/
-        for (Vehiculo v : flota) {
-            if (v.getMatricula().equals(matricula)) {
+        return null;
+        /*for (Vehiculo v : flota) {
+            if (matricula.equals(v.getMatricula().toString())) {
                 return v;
             }
         }
-        return null;
+        return null;*/
     }
 
     /**

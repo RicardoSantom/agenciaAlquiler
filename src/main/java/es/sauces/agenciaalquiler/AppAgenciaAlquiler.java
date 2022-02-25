@@ -1,8 +1,11 @@
 package es.sauces.agenciaalquiler;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,9 +19,12 @@ public class AppAgenciaAlquiler {
      */
     public static void main(String[] args) {
         AgenciaAlquiler aa = new AgenciaAlquiler();
-        int opcion;
+        int opcion, plazas = 0;
         Scanner teclado = new Scanner(System.in);
         List<Vehiculo> flota;
+        String entrada = null;
+        Grupo grupo = null;
+        Matricula matricula = null;
 
         do {
             System.out.println("1.Crear turismo.");
@@ -39,60 +45,84 @@ public class AppAgenciaAlquiler {
             teclado.nextLine();
 
             switch (opcion) {
-                case 1:
-                    String matricula,
-                     grupo;
-                    //Grupo grupo = null;
-                    int plazas;
+                case 1: 
+                    try {
                     System.out.println("1.Crear turismo.");
                     System.out.println("Introduzca matricula: ");
-                    matricula = teclado.nextLine();
+                    entrada = teclado.nextLine();
+                    matricula = Matricula.valueOf(entrada);
                     System.out.println("Introduzca grupo(A,B,C): ");
-                    grupo = teclado.nextLine();
+                    entrada = teclado.nextLine();
+                    grupo = Grupo.valueOf(entrada);
                     System.out.println("Introduzca numero de plazas:");
                     plazas = teclado.nextInt();
                     teclado.nextLine();
-                    if (aa.incluirVehiculo(new Turismo(matricula, Grupo.valueOf(grupo), plazas))) {
+                    if (aa.incluirVehiculo(new Turismo(matricula, grupo, plazas))) {
                         System.out.println("Turismo registrado.");
                     } else {
                         System.out.println("No se ha podido incluir el turismo.");
                     }
                     System.out.println("-------------------------------------");
-                    break;
+                } catch (MatriculaException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (InputMismatchException ime) {
+                    System.out.println("Debe ser un entero.");
+                    teclado.nextLine();
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("Debe introducir uno de los siguients valores:" + Arrays.toString(Grupo.values()));
+                }
+                break;
 
                 case 2:
-                    grupo = null;
+                    try {
                     int capacidad;
                     System.out.println("2.Crear furgoneta.");
                     System.out.println("Introduzca matricula: ");
-                    matricula = teclado.nextLine();
+                    entrada = teclado.nextLine();
+                    matricula = Matricula.valueOf(entrada);
                     System.out.println("Introduzca grupo(A,B,C): ");
                     System.out.println(Arrays.toString(Grupo.values()));
-                    grupo = teclado.nextLine();
+                    entrada = teclado.nextLine();
+                    grupo = Grupo.valueOf(entrada);
                     System.out.println("Introduzca capacidad:");
                     capacidad = teclado.nextInt();
                     teclado.nextLine();
-                    if (aa.incluirVehiculo(new Furgoneta(matricula, Grupo.valueOf(grupo), capacidad))) {
+                    if (aa.incluirVehiculo(new Furgoneta(matricula, grupo, capacidad))) {
                         System.out.println("Furgoneta registrada.");
                     } else {
                         System.out.println("No se ha podido incluir la furgoneta.");
                     }
                     System.out.println("-------------------------------------");
-                    break;
+                } catch (MatriculaException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (InputMismatchException ime) {
+                    System.out.println("debe ser un entero.");
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("Debe introducir uno de los siguients valores:" + Arrays.toString(Grupo.values()));
+                }
+                break;
                 case 3:
+                    try {
                     System.out.println("3.Consultar vehiculo.");
                     System.out.println("Introduzca matricula para consultar vehiculo");
-                    matricula = teclado.nextLine();
-                    if(aa.consultarVehiculo(matricula) != null){
-                        System.out.println(aa.consultarVehiculo(matricula));
-                    }else{
-                        System.out.println("No existe el vehiculo");
-                    }
-                    break;
+                    entrada = teclado.nextLine();
+                    matricula = Matricula.valueOf(entrada);
+                } catch (MatriculaException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+                if (aa.consultarVehiculo(matricula) != null) {
+                    System.out.println(aa.consultarVehiculo(matricula));
+                } else {
+                    System.out.println("No existe el vehiculo");
+                }
+                break;
                 case 4:
+                    try {
                     System.out.println("4.Eliminar vehiculo.");
                     System.out.println("Introduzca matricula para eliminar vehiculo");
-                    matricula = teclado.nextLine();
+                    entrada = teclado.nextLine();
+                    matricula = Matricula.valueOf(entrada);
                     System.out.println("Esta seguro de eliminar este vehiculo(SI/NO)");
                     String opcion2;
                     opcion2 = teclado.nextLine();
@@ -102,24 +132,32 @@ public class AppAgenciaAlquiler {
                     } else {
                         System.out.println("Ha decidido no eliminar el vehiculo.");
                     }
-                    break;
+                } catch (MatriculaException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                break;
                 case 5:
+                    try {
                     System.out.println("5.Listar vehiculo por grupo.");
                     boolean correcto;
-                    do{
-                        correcto=false;
-                        System.out.println("Introduzca grupo a buscar. "+Arrays.toString(Grupo.values()));
-                        grupo=teclado.nextLine();
-                        for(Grupo g : Grupo.values()){
-                            if(grupo.equals(g.toString())){
-                                correcto=true;
+                    do {
+                        correcto = false;
+                        System.out.println("Introduzca grupo a buscar. " + Arrays.toString(Grupo.values()));
+                        entrada = teclado.nextLine();
+                        grupo = Grupo.valueOf(entrada);
+                        for (Grupo g : Grupo.values()) {
+                            if (grupo.equals(g)) {
+                                correcto = true;
                             }
                         }
-                    }while(!correcto);
-                    for (Vehiculo v: aa.listarVehiculos(Grupo.valueOf(grupo))){
-                        System.out.println(v);
-                    }
-                    break;
+                    } while (!correcto);
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("Debe introducir uno de los siguients valores:" + Arrays.toString(Grupo.values()));
+                }
+                for (Vehiculo v : aa.listarVehiculos(grupo)) {
+                    System.out.println(v);
+                }
+                break;
                 case 6:
                     System.out.println("6.Listar vehiculo por precio.");
                     for (Vehiculo vehiculo : aa.listarVehiculosPorPrecio()) {
@@ -155,6 +193,7 @@ public class AppAgenciaAlquiler {
                 default:
                     System.out.println("Opción incorrecta.");
                     System.out.println("-------------------------------------");
+
             }
 
         } while (opcion != 0);

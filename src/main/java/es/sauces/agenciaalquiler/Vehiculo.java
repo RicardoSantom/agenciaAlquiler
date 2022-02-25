@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public abstract class Vehiculo implements Comparable<Vehiculo> {
 
-    private String matricula;
+    private Matricula matricula;
     private Grupo grupo;
 
     /**
@@ -27,7 +27,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
      * @param matricula
      * @param grupo
      */
-    public Vehiculo(String matricula, Grupo grupo) {
+    public Vehiculo(Matricula matricula, Grupo grupo) {
         this.matricula = matricula;
         this.grupo = grupo;
     }
@@ -36,7 +36,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
      *
      * @return
      */
-    public String getMatricula() {
+    public Matricula getMatricula() {
         return matricula;
     }
 
@@ -44,7 +44,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo> {
      *
      * @param matricula
      */
-    public void setMatricula(String matricula) {
+    public void setMatricula(Matricula matricula) {
         this.matricula = matricula;
     }
 
