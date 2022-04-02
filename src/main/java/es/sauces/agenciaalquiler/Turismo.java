@@ -57,7 +57,7 @@ public class Turismo extends Vehiculo {
      */
     @Override
     public float getPrecioAlquiler() {
-        return getGrupo().getBase()+getGrupo().getVariableTurismo()*plazas;
+        return getGrupo().getBase() + getGrupo().getVariableTurismo() * plazas;
 
     }
 

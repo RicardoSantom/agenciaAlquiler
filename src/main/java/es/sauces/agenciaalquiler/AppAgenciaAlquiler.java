@@ -1,11 +1,11 @@
 package es.sauces.agenciaalquiler;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +25,8 @@ public class AppAgenciaAlquiler {
         String entrada = null;
         Grupo grupo = null;
         Matricula matricula = null;
+        Properties Propiedades=new Properties();
+        Propiedades.setProperty("ultimaconexion",LocalDateTime.now().toString());
 
         do {
             System.out.println("1.Crear turismo.");
@@ -36,6 +38,8 @@ public class AppAgenciaAlquiler {
             System.out.println("7.Listar turismos.");
             System.out.println("8.Listar furgonetas.");
             System.out.println("9.Consultar alquiler mas barato.");
+            System.out.println("10.Guardar vehiculos.");
+            System.out.println("11.Cargar vehiculos.");
             System.out.println("0.Salir.");
             System.out.println("Introduzca opcion:");
             while (!teclado.hasNextInt()) {
@@ -187,6 +191,21 @@ public class AppAgenciaAlquiler {
                     System.out.println(vehiculo + " mas barato= " + vehiculo.getPrecioAlquiler());
                     System.out.println("-------------------------------------");
                     break;
+                case 10:
+                    System.out.println("10.Guardar vehiculos.");
+                    System.out.println("Introduce el nombre del fichero a guardar");
+                    String archivo = teclado.nextLine();
+                    aa.setVehiculoDao(getDao(archivo));
+                    try {
+                        int n = aa.guardarVehiculos();
+                        System.out.println("Se han guardado " + n + " vehiculos");
+                    } catch (DaoException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    break;
+                case 11:
+                    System.out.println("11.Cargar vehiculos.");
+                    break;
                 case 0:
                     System.out.println("Hasta pronto.");
                     break;
@@ -199,5 +218,25 @@ public class AppAgenciaAlquiler {
         } while (opcion != 0);
 
     }
-
+    private static VehiculoDao getDao(String archivo) {
+        VehiculoDao vd = null;
+        int posicion = archivo.lastIndexOf(".") + 1;
+        String extension;
+        extension = archivo.substring(posicion);
+        switch (extension) {
+            case "csv":
+                vd = new VehiculoDaoCsv(archivo);
+                break;
+            /*case "obj":
+                ed = new VehiculoDaoObj(archivo);
+                break;
+            case "xml":
+                ed = new VehiculoDaoXml(archivo);
+                break;
+            case "json":
+                ed = new VehiculoDaoJson(archivo);
+                break;*/
+        }
+        return vd;
+    }
 }

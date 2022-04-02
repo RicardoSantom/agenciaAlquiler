@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.sauces.agenciaalquiler;
 
 import java.util.ArrayList;
@@ -18,12 +13,21 @@ public class AgenciaAlquiler {
 
     private String nombre;
     private List<Vehiculo> flota;
+    private VehiculoDao vehiculoDao;
 
     /**
      *
      */
     public AgenciaAlquiler() {
         flota = new ArrayList<>();
+    }
+
+    public VehiculoDao getVehiculoDao() {
+        return vehiculoDao;
+    }
+
+    public void setVehiculoDao(VehiculoDao vehiculoDao) {
+        this.vehiculoDao = vehiculoDao;
     }
 
     /**
@@ -80,12 +84,12 @@ public class AgenciaAlquiler {
      */
     public Vehiculo consultarVehiculo(Matricula matricula) {
         //Con listiterator
-        Vehiculo salida=null;
-        ListIterator<Vehiculo> li=flota.listIterator();
-        
-        while(li.hasNext()){
-            salida=li.next();
-            if(salida.getMatricula().equals(matricula)){
+        Vehiculo salida = null;
+        ListIterator<Vehiculo> li = flota.listIterator();
+
+        while (li.hasNext()) {
+            salida = li.next();
+            if (salida.getMatricula().equals(matricula)) {
                 return salida;
             }
         }
@@ -125,6 +129,14 @@ public class AgenciaAlquiler {
         return salida;
     }
 
+    public List<Vehiculo> listarTodosVehiculos() {
+        List<Vehiculo> salida = null;
+
+        salida = new ArrayList<>(flota);
+
+        return salida;
+    }
+
     /**
      *
      * @param grupo
@@ -133,8 +145,8 @@ public class AgenciaAlquiler {
     public List<Vehiculo> listarVehiculos(Grupo grupo) {
         List<Vehiculo> salida = null;
         salida = new ArrayList<>();
-        for(Vehiculo vehiculo : flota){
-            if(vehiculo.getGrupo()==grupo){
+        for (Vehiculo vehiculo : flota) {
+            if (vehiculo.getGrupo() == grupo) {
                 salida.add(vehiculo);
             }
         }
@@ -149,6 +161,30 @@ public class AgenciaAlquiler {
         Vehiculo barato;
         barato = Collections.min(flota, new ComparadorPrecio());
         return barato;
+    }
+
+    public int guardarVehiculos() throws DaoException {
+        int n = 0;
+        if (vehiculoDao == null) {
+            throw new DaoException("No se ha establecido un archivo");
+        }
+        n = vehiculoDao.insertar(listarTodosVehiculos());
+        return n;
+    }
+
+    public int cargarVehiculos() throws DaoException {
+        int n = 0;
+        if (vehiculoDao == null) {
+            throw new DaoException("No existe el archivo");
+        }
+
+        List<Vehiculo> listado = vehiculoDao.listar();
+        for (Vehiculo v : listado) {
+            if (incluirVehiculo(v)) {
+                n++;
+            }
+        }
+        return n;
     }
 
 }
