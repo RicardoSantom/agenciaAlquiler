@@ -29,7 +29,7 @@ public class AppAgenciaAlquiler {
         int opcion, plazas = 0;
         Scanner teclado = new Scanner(System.in);
         List<Vehiculo> flota;
-        String entrada = null;
+        String entrada = null,archivo;
         Grupo grupo = null;
         Matricula matricula = null;
         Properties Propiedades=new Properties();
@@ -187,8 +187,8 @@ public class AppAgenciaAlquiler {
                 case 8:
                     System.out.println("8.Listar furgonetas.");
                     for (Vehiculo vehiculo : aa.getFlota()) {
-                        if (vehiculo instanceof Turismo) {
-                            System.out.println(vehiculo);
+                        if (vehiculo.getClass().equals(Furgoneta.class)) {
+                            System.out.println(vehiculo.toString());
                         }
                     }
                     break;
@@ -201,7 +201,7 @@ public class AppAgenciaAlquiler {
                 case 10:
                     System.out.println("10.Guardar vehiculos.");
                     System.out.println("Introduce el nombre del fichero a guardar");
-                    String archivo = teclado.nextLine();
+                    archivo = teclado.nextLine();
                     aa.setVehiculoDao(getDao(archivo));
                     try {
                         int n = aa.guardarVehiculos();
@@ -212,6 +212,15 @@ public class AppAgenciaAlquiler {
                     break;
                 case 11:
                     System.out.println("11.Cargar vehiculos.");
+                    System.out.println("Introduce el nombre del fichero a cargar");
+                    archivo = teclado.nextLine();
+                    aa.setVehiculoDao(getDao(archivo));
+                    try {
+                        int n = aa.cargarVehiculos();
+                        System.out.println("Se han cargado " + n + " vehiculos");
+                    } catch (DaoException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                     break;
                 case 0:
                     System.out.println("Hasta pronto.");
@@ -234,15 +243,15 @@ public class AppAgenciaAlquiler {
             case "csv":
                 vd = new VehiculoDaoCsv(archivo);
                 break;
-            /*case "obj":
-                ed = new VehiculoDaoObj(archivo);
+            case "obj":
+                vd = new VehiculoDaoObj(archivo);
                 break;
             case "xml":
-                ed = new VehiculoDaoXml(archivo);
+                vd = new VehiculoDaoXml(archivo);
                 break;
             case "json":
-                ed = new VehiculoDaoJson(archivo);
-                break;*/
+                vd = new VehiculoDaoJson(archivo);
+                break;
         }
         return vd;
     }
