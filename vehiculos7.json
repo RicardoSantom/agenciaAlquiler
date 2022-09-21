@@ -1,0 +1,58 @@
+[
+  {
+    "type": "Turismo",
+    "plazas": 5,
+    "matricula": {
+      "valor": "1111BBB"
+    },
+    "grupo": "B"
+  },
+  {
+    "type": "Turismo",
+    "plazas": 2,
+    "matricula": {
+      "valor": "1111CCC"
+    },
+    "grupo": "A"
+  },
+  {
+    "type": "Turismo",
+    "plazas": 4,
+    "matricula": {
+      "valor": "1111JYJ"
+    },
+    "grupo": "C"
+  },
+  {
+    "type": "Furgoneta",
+    "capacidad": 500.0,
+    "matricula": {
+      "valor": "3333TTT"
+    },
+    "grupo": "C"
+  },
+  {
+    "type": "Furgoneta",
+    "capacidad": 200.0,
+    "matricula": {
+      "valor": "4444BBB"
+    },
+    "grupo": "A"
+  },
+  {
+    "type": "Turismo",
+    "plazas": 3,
+    "matricula": {
+      "valor": "6666BBB"
+    },
+    "grupo": "A"
+  },
+  {
+    "type": "Furgoneta",
+    "capacidad": 500.0,
+    "matricula": {
+      "valor": "7777BBB"
+    },
+    "grupo": "A"
+  }
+]

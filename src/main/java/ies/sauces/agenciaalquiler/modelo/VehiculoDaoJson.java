@@ -1,4 +1,4 @@
-package es.sauces.agenciaalquiler;
+package ies.sauces.agenciaalquiler.modelo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

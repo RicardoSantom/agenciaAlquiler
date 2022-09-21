@@ -1,4 +1,4 @@
-package es.sauces.agenciaalquiler;
+package ies.sauces.agenciaalquiler.modelo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +11,7 @@ package es.sauces.agenciaalquiler;
  *
  * @author Usuario
  */
-class DaoException extends Exception {
+public class DaoException extends Exception {
 
     public DaoException(String message) {
         super(message);

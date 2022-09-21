@@ -1,4 +1,4 @@
-package es.sauces.agenciaalquiler;
+package ies.sauces.agenciaalquiler.appAgenciaAlquiler;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,6 +7,19 @@ package es.sauces.agenciaalquiler;
  */
 
 
+import ies.sauces.agenciaalquiler.modelo.AgenciaAlquiler;
+import ies.sauces.agenciaalquiler.modelo.DaoException;
+import ies.sauces.agenciaalquiler.modelo.Furgoneta;
+import ies.sauces.agenciaalquiler.modelo.Grupo;
+import ies.sauces.agenciaalquiler.modelo.Matricula;
+import ies.sauces.agenciaalquiler.modelo.MatriculaException;
+import ies.sauces.agenciaalquiler.modelo.Turismo;
+import ies.sauces.agenciaalquiler.modelo.Vehiculo;
+import ies.sauces.agenciaalquiler.modelo.VehiculoDao;
+import ies.sauces.agenciaalquiler.modelo.VehiculoDaoCsv;
+import ies.sauces.agenciaalquiler.modelo.VehiculoDaoJson;
+import ies.sauces.agenciaalquiler.modelo.VehiculoDaoObj;
+import ies.sauces.agenciaalquiler.modelo.VehiculoDaoXml;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -178,7 +191,7 @@ public class AppAgenciaAlquiler {
                     break;
                 case 7:
                     System.out.println("7.Listar turismos.");
-                    for (Vehiculo vehiculo : aa.getFlota()) {
+                    for (Vehiculo vehiculo : aa.getFlota().values()) {
                         if (vehiculo.getClass().equals(Turismo.class)) {
                             System.out.println(vehiculo.toString());
                         }
@@ -186,7 +199,7 @@ public class AppAgenciaAlquiler {
                     break;
                 case 8:
                     System.out.println("8.Listar furgonetas.");
-                    for (Vehiculo vehiculo : aa.getFlota()) {
+                    for (Vehiculo vehiculo : aa.getFlota().values()) {
                         if (vehiculo.getClass().equals(Furgoneta.class)) {
                             System.out.println(vehiculo.toString());
                         }

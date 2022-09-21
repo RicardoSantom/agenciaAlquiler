@@ -1,4 +1,4 @@
-package es.sauces.agenciaalquiler;
+package ies.sauces.agenciaalquiler.modelo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  *
  * @author daw1
  */
-class Matricula implements Comparable<Matricula>,Serializable{
+public class Matricula implements Comparable<Matricula>,Serializable{
     private String valor;
 
     public Matricula() {
@@ -54,20 +54,11 @@ class Matricula implements Comparable<Matricula>,Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        Matricula other = (Matricula) obj;
+        if (this.valor.equals(other.getValor())) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Matricula other = (Matricula) obj;
-        if (!Objects.equals(this.valor, other.valor)) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     @Override
